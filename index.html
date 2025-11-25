@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Quarterly Earnings — Interactive Report</title>
+
+  <!-- Reveal core + theme via CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" id="theme">
+
+  <!-- Custom styling -->
+  <link rel="stylesheet" href="css/custom.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title slide -->
+      <section>
+        <h1>Quarterly Earnings Report</h1>
+        <h3>Interactive summary for stakeholders</h3>
+        <p class="small">Prepared by: Technical Consulting — Major Financial Institution</p>
+        <p class="small">Contact: <a href="mailto:23f2000680@ds.study.iitm.ac.in">23f2000680@ds.study.iitm.ac.in</a></p>
+        <aside class="notes">
+          Introduce team, state goal: highlight Q performance, risks, and actions.
+        </aside>
+      </section>
+
+      <!-- Markdown slide (demonstrates Markdown support) -->
+      <section data-markdown>
+        <textarea data-template>
+## Executive Highlights (Markdown slide)
+
+- Revenue: **↑ 12% QoQ**.  
+- Margin: **Stable** at ~22%.  
+- Key drivers:
+  - Fragment 1 (reveals)
+  - Fragment 2 (reveals)
+  - Fragment 3 (reveals)
+
+---
+
+### Quick bullet actions
+
+1. Increase focus on high-margin product lines.  
+2. Rebalance OPEX.
+        </textarea>
+        <!-- speaker notes for the markdown slide -->
+        <aside class="notes">Talk through highlights, call out the 12% revenue uptick and product-level drivers.</aside>
+      </section>
+
+      <!-- Slide with animated fragments -->
+      <section>
+        <h2>Key Points (Animated)</h2>
+        <ul>
+          <li class="fragment">Revenue growth driven by X</li>
+          <li class="fragment">Margin improvement due to Y</li>
+          <li class="fragment fade-up">Cost control initiatives underway</li>
+        </ul>
+        <aside class="notes">Use these fragments to pace the narrative for executives.</aside>
+      </section>
+
+      <!-- Slide with code sample & syntax highlighting -->
+      <section>
+        <h2>Example: Data loading & KPI calc</h2>
+        <pre><code class="language-python">
+# load revenue data and compute YoY growth
+import pandas as pd
+
+data = pd.read_csv('data/revenue_qtr.csv')
+revenue_q = data['revenue'].iloc[-1]
+revenue_prev_q = data['revenue'].iloc[-2]
+qoq_growth = (revenue_q - revenue_prev_q) / revenue_prev_q
+
+print(f"QoQ revenue growth: {qoq_growth:.2%}")
+        </code></pre>
+        <aside class="notes">
+          Explain the data pipeline briefly; point out where auditors can validate the CSV.
+        </aside>
+      </section>
+
+      <!-- Mathematical equations -->
+      <section>
+        <h2>Financial Formula</h2>
+        <p>Net Present Value (NPV):</p>
+        <p>\[\text{NPV} = \sum_{t=0}^{T} \frac{C_t}{(1 + r)^t}\]</p>
+        <p>Return on Invested Capital (ROIC):</p>
+        <p>\[\text{ROIC} = \frac{\text{NOPAT}}{\text{Invested Capital}}\]</p>
+        <aside class="notes">Walk through assumptions: discount rate `r`, horizon `T`, and NOPAT drivers.</aside>
+      </section>
+
+      <!-- Slide with an interactive placeholder chart (chart loads on slide change) -->
+      <section id="chart-slide">
+        <h2>Revenue Trend (Interactive)</h2>
+        <div id="chart" style="width:80%;height:400px;margin:0 auto;">
+          <!-- chart will be drawn by js/visualizations.js -->
+          <p class="fragment">Chart initializes when this slide is shown.</p>
+        </div>
+        <aside class="notes">Click into the chart to show tooltips; this is demo data for the deck.</aside>
+      </section>
+
+      <!-- Live iframe demo slide -->
+      <section>
+        <h2>Live Demo: Model Explorer</h2>
+        <iframe data-src="https://example.com/demo" data-preload style="width:100%;height:70vh;border:1px solid #ddd;"></iframe>
+        <aside class="notes">If iframe blocked, open the demo in a new tab for stakeholders after the meeting.</aside>
+      </section>
+
+      <!-- Closing slide -->
+      <section>
+        <h2>Next steps</h2>
+        <ol>
+          <li class="fragment">Share detailed backup slides with finance.</li>
+          <li class="fragment">Set up deep-dive with product teams.</li>
+          <li class="fragment">Deliver updated forecasts by EOM.</li>
+        </ol>
+        <p>Contact: <a href="mailto:23f2000680@ds.study.iitm.ac.in">23f2000680@ds.study.iitm.ac.in</a></p>
+        <aside class="notes">Summarize takeaways and confirm owners for next steps.</aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Reveal + plugins (ES modules) -->
+  <script type="module">
+    import Reveal from 'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.esm.js';
+    import RevealMarkdown from 'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.esm.js';
+    import RevealHighlight from 'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.esm.js';
+    import RevealMath from 'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/math/math.esm.js';
+    import RevealNotes from 'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.esm.js';
+
+    const deck = new Reveal({
+      width: 1280,
+      height: 720,
+      margin: 0.06,
+      transition: 'slide',
+      controls: true,
+      progress: true,
+      history: true,
+      plugins: [RevealMarkdown, RevealHighlight, RevealMath, RevealNotes],
+      math: {
+        // Will use KaTeX if available — RevealMath handles rendering
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+      }
+    });
+
+    deck.initialize();
+
+    // Initialize chart when slide is shown
+    deck.on('slidechanged', event => {
+      if (event.currentSlide && event.currentSlide.id === 'chart-slide') {
+        // lazy load the chart script if not loaded
+        if (!window.__chart_loaded) {
+          const s = document.createElement('script');
+          s.src = 'js/visualizations.js';
+          s.onload = () => { window.__chart_loaded = true; initDemoChart(); };
+          document.body.appendChild(s);
+        } else if (window.initDemoChart) {
+          initDemoChart();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
